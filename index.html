@@ -11,9 +11,9 @@
     </style>
 </head>
 <body>
-    <a-scene embedded arjs="sourceType: webcam; debugUIEnabled: false;">
+    <a-scene embedded arjs="sourceType: webcam; debugUIEnabled: false; mindelays: false;">
         <!-- Marker Definition -->
-        <a-marker type="pattern" url="pattern-hiro.patt">
+        <a-marker preset="hiro">
             <!-- 3D Model or Object -->
             <a-box position="0 0.5 0" material="color: red;"></a-box>
         </a-marker>
