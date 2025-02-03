@@ -3,13 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Astronauta</title>
+    <title>Astronaua - komplet</title>
     <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
     <script src="https://cdn.jsdelivr.net/gh/AR-js-org/AR.js/aframe/build/aframe-ar.js"></script>
-    <script src="https://cdn.jsdelivr.net/gh/AR-js-org/AR.js/aframe/build/aframe-rotationcontrols.js"></script>
     <style>
         body { margin: 0; overflow: hidden; }
-        /* Styl dla przycisków GUI */
         .gui-buttons {
             position: absolute;
             top: 20px;
@@ -49,7 +47,7 @@
         <a-entity camera></a-entity>
     </a-scene>
 
-    <!-- GUI - Przycisk do obrotu w lewo -->
+    <!-- GUI - Przycisk do obrotu -->
     <div class="gui-buttons">
         <button onclick="rotateModel('left')">Obróć w lewo</button>
         <button onclick="rotateModel('right')">Obróć w prawo</button>
