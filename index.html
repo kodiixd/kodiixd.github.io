@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Astronaua - komplet</title>
+    <title>AR Astronauta</title>
     <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
     <script src="https://cdn.jsdelivr.net/gh/AR-js-org/AR.js/aframe/build/aframe-ar.js"></script>
     <style>
@@ -40,7 +40,7 @@
                       position="0 0 -3" 
                       scale="0.5 0.5 0.5"
                       rotation="0 0 0"
-                      draggable="true">
+                      class="draggable">
         </a-gltf-model>
 
         <!-- Kamera AR -->
@@ -69,6 +69,40 @@
                 model.setAttribute('rotation', {x: 0, y: 0, z: 0});
             }
         }
+
+        // Przeciąganie obiektu
+        let isDragging = false;
+        let lastPosition = { x: 0, y: 0, z: 0 };
+
+        // Obsługuje rozpoczęcie przeciągania
+        document.querySelector('.draggable').addEventListener('mousedown', (event) => {
+            isDragging = true;
+            lastPosition = { x: event.clientX, y: event.clientY }; // Zapisz pozycję początkową
+        });
+
+        // Obsługuje przeciąganie obiektu
+        document.addEventListener('mousemove', (event) => {
+            if (isDragging) {
+                const model = document.getElementById('astronaut');
+                const deltaX = event.clientX - lastPosition.x;
+                const deltaY = event.clientY - lastPosition.y;
+
+                // Aktualizuj pozycję modelu
+                let currentPosition = model.getAttribute('position');
+                model.setAttribute('position', {
+                    x: currentPosition.x + deltaX * 0.01, // Przemieszczanie w osi X
+                    y: currentPosition.y - deltaY * 0.01, // Przemieszczanie w osi Y
+                    z: currentPosition.z
+                });
+
+                lastPosition = { x: event.clientX, y: event.clientY }; // Zaktualizuj pozycję
+            }
+        });
+
+        // Kończy przeciąganie
+        document.addEventListener('mouseup', () => {
+            isDragging = false;
+        });
     </script>
 </body>
 </html>
