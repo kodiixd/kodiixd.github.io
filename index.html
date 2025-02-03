@@ -3,9 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AR Astronauta</title>
+    <title>AR z modelem 3D i przesuwaniem</title>
     <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
     <script src="https://cdn.jsdelivr.net/gh/AR-js-org/AR.js/aframe/build/aframe-ar.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/aframe-physics-system@4.0.1/dist/aframe-physics-system.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/aframe-virtual-reality@1.0.0/dist/aframe-virtual-reality.min.js"></script>
     <style>
         body { margin: 0; overflow: hidden; }
         .gui-buttons {
@@ -34,12 +36,16 @@
 <body style="margin: 0; overflow: hidden;">
     <!-- Definicja sceny AR -->
     <a-scene embedded arjs="sourceType: webcam; debugUIEnabled: false;">
+        <!-- Definiowanie fizyki i dragowania -->
+        <a-entity id="cursor" cursor="rayOrigin: mouse" position="0 0 -2"></a-entity>
+        
         <!-- Załaduj model 3D -->
         <a-gltf-model id="astronaut" 
                       src="https://modelviewer.dev/shared-assets/models/Astronaut.glb" 
-                      position="0 0 -3" 
+                      position="0 1 -3" 
                       scale="0.5 0.5 0.5"
                       rotation="0 0 0"
+                      draggable="true"
                       class="draggable">
         </a-gltf-model>
 
@@ -70,32 +76,24 @@
             }
         }
 
-        // Przeciąganie obiektu
+        // Zmienna pomocnicza do przechowywania stanu przesuwania
         let isDragging = false;
-        let lastPosition = { x: 0, y: 0, z: 0 };
 
         // Obsługuje rozpoczęcie przeciągania
         document.querySelector('.draggable').addEventListener('mousedown', (event) => {
             isDragging = true;
-            lastPosition = { x: event.clientX, y: event.clientY }; // Zapisz pozycję początkową
         });
 
         // Obsługuje przeciąganie obiektu
         document.addEventListener('mousemove', (event) => {
             if (isDragging) {
                 const model = document.getElementById('astronaut');
-                const deltaX = event.clientX - lastPosition.x;
-                const deltaY = event.clientY - lastPosition.y;
-
-                // Aktualizuj pozycję modelu
-                let currentPosition = model.getAttribute('position');
+                const newPosition = model.getAttribute('position');
                 model.setAttribute('position', {
-                    x: currentPosition.x + deltaX * 0.01, // Przemieszczanie w osi X
-                    y: currentPosition.y - deltaY * 0.01, // Przemieszczanie w osi Y
-                    z: currentPosition.z
+                    x: newPosition.x + event.movementX * 0.01, 
+                    y: newPosition.y - event.movementY * 0.01, 
+                    z: newPosition.z
                 });
-
-                lastPosition = { x: event.clientX, y: event.clientY }; // Zaktualizuj pozycję
             }
         });
 
