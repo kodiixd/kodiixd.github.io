@@ -3,22 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AR Demo na iPhone</title>
+    <title>AR z obiektem 3D</title>
     <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
     <script src="https://cdn.jsdelivr.net/gh/AR-js-org/AR.js/aframe/build/aframe-ar.js"></script>
     <style>
         body { margin: 0; overflow: hidden; }
-        #arjs-loader { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); color: white; }
     </style>
 </head>
 <body style="margin: 0; overflow: hidden;">
-    <a-scene embedded arjs>
-        <a-marker type="pattern" url="marker.patt">
-            <a-box position="0 0.5 0" color="blue"></a-box>
-        </a-marker>
+    <!-- Definicja sceny AR -->
+    <a-scene embedded arjs="sourceType: webcam; debugUIEnabled: false;">
+        <!-- Obiekt 3D umieszczony w przestrzeni AR -->
+        <a-box position="0 0 -2" color="blue" scale="0.5 0.5 0.5"></a-box>
+
+        <!-- Kamera AR -->
         <a-entity camera></a-entity>
     </a-scene>
-
-    <div id="arjs-loader">Ładowanie AR...</div>
 </body>
 </html>
