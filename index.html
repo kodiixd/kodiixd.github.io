@@ -1,29 +1,24 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>WebAR with Image Marker Detection</title>
+    <title>AR Demo na iPhone</title>
     <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
-    <script src="https://cdn.rawgit.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/AR-js-org/AR.js/aframe/build/aframe-ar.js"></script>
     <style>
         body { margin: 0; overflow: hidden; }
+        #arjs-loader { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); color: white; }
     </style>
 </head>
-<body>
-    <a-scene embedded arjs="sourceType: webcam; debugUIEnabled: false; mindelays: false;">
-        <!-- Marker Definition -->
+<body style="margin: 0; overflow: hidden;">
+    <a-scene embedded arjs>
         <a-marker preset="hiro">
-            <!-- 3D Model or Object -->
-            <a-box position="0 0.5 0" material="color: red;"></a-box>
+            <a-box position="0 0.5 0" color="blue"></a-box>
         </a-marker>
-        
-        <!-- Camera -->
         <a-entity camera></a-entity>
     </a-scene>
 
-    <div style="position: fixed; bottom: 10px; width: 100%; text-align: center; color: white;">
-        Skieruj kamerę na marker, aby zobaczyć obiekt 3D.
-    </div>
+    <div id="arjs-loader">Ładowanie AR...</div>
 </body>
 </html>
